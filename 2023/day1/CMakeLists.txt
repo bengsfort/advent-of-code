@@ -7,10 +7,16 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Source files + executable setup
 set(SOURCES
-	sources/hello.cpp
+	sources/main.cpp
 )
 
 add_executable(day1 ${SOURCES})
+
+# Links
+target_link_libraries(day1 PRIVATE utils)
+
+# Copy inputs
+file(COPY inputs DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/build)
 
 # Configure target
 set_target_properties(day1 PROPERTIES
