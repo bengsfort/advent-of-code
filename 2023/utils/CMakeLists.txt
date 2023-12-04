@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(UTILS_SOURCES
-	sources/utilities.cpp
+	sources/args.cpp
 )
 
 add_library(utils ${UTILS_SOURCES})
