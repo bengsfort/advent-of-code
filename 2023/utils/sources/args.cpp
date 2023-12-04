@@ -22,6 +22,8 @@ bool utilities::hasArg(int argc, char *argv[], char const* argName)
     return false;
 }
 
+// TODO: this does not currently handle if the string is wrapped in "" or ''
+// ie: --file=./inputs/codes.txt works but --file="./inputs/codes.txt" does not
 char* utilities::getStringArg(int argc, char *argv[], const char* argName)
 {
 	// Can't be there if there are no args...
