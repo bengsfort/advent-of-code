@@ -46,6 +46,7 @@ char parseWrittenNumber(string str, int start)
 	return 0;
 }
 
+// https://adventofcode.com/2023/day/1
 int main(int argc, char* argv[])
 {
 	char* file_name = utilities::getStringArg(argc, argv, "--file");
