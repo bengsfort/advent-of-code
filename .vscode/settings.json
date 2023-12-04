@@ -13,6 +13,8 @@
 	},
 	"files.associations": {
 		"iostream": "cpp",
-		"string": "cpp"
+		"string": "cpp",
+		"ios": "cpp",
+		"tuple": "cpp"
 	}
 }
