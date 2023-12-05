@@ -27,7 +27,6 @@ array<int, 3> parseGame(string game_str)
 
 	int color_idx;
 	size_t color_len;
-	size_t cursor_len;
 	size_t cursor = game_str.find_first_of(':') + 1;
 
 	while (cursor < game_str.length()) {
@@ -49,16 +48,9 @@ array<int, 3> parseGame(string game_str)
 
 		for (const char * color : colors) {
 			color_len = color_lens[color_idx];
-			cursor_len = color_len + cursor;
 
-			// If it overflows, deffo not it
-			if (game_str.length() < cursor_len) {
-				color_idx++;
-				continue;
-			}
-
-			// Not it if it isn't equal either
-			if (strcmp(color, game_str.substr(cursor, color_len).c_str()) != 0) {
+			// If the first characters don't match, move on
+			if (color[0] != game_str[cursor]) {
 				color_idx++;
 				continue;
 			}
