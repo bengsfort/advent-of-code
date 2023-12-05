@@ -5,6 +5,11 @@
 using namespace std;
 
 const char * colors[] = { "red", "green", "blue" };
+const size_t color_lens[] = {
+	strlen(colors[0]),
+	strlen(colors[1]),
+	strlen(colors[2])
+};
 
 // Just part 1 things
 // const int red_cube_max = 12;
@@ -21,11 +26,11 @@ array<int, 3> parseGame(string game_str)
 	int curr_num_val;
 
 	int color_idx;
+	size_t color_len;
 	size_t cursor_len;
 	size_t cursor = game_str.find_first_of(':') + 1;
-	while (cursor < game_str.length()) {
-		// printf("char: %c\n", game_str[cursor]);
 
+	while (cursor < game_str.length()) {
 		// Skip non-alphanumerics
 		if (game_str[cursor] == ' ' || game_str[cursor] == ',' || game_str[cursor] == ';') {
 			cursor++;
@@ -41,8 +46,10 @@ array<int, 3> parseGame(string game_str)
 
 		// determine which color it is
 		color_idx = 0;
+
 		for (const char * color : colors) {
-			cursor_len = strlen(color) + cursor;
+			color_len = color_lens[color_idx];
+			cursor_len = color_len + cursor;
 
 			// If it overflows, deffo not it
 			if (game_str.length() < cursor_len) {
@@ -51,7 +58,7 @@ array<int, 3> parseGame(string game_str)
 			}
 
 			// Not it if it isn't equal either
-			if (strcmp(color, game_str.substr(cursor, strlen(color)).c_str()) != 0) {
+			if (strcmp(color, game_str.substr(cursor, color_len).c_str()) != 0) {
 				color_idx++;
 				continue;
 			}
@@ -65,7 +72,7 @@ array<int, 3> parseGame(string game_str)
 			}
 
 			curr_num.clear();
-			cursor += strlen(color);
+			cursor += color_len;
 			break;
 		}
 	}
