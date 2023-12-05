@@ -17,11 +17,10 @@ const size_t color_lens[] = {
 // const int blue_cube_max = 14;
 
 
-// ex:
-// Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
-array<int, 3> parseGame(string game_str)
+void parseGame(string game_str, array<int, 3>* rgb)
 {
-	array<int, 3> rgb = { 0, 0, 0 };
+	// reset array
+	rgb->fill(0);
 	string curr_num;
 	int curr_num_val;
 
@@ -55,12 +54,11 @@ array<int, 3> parseGame(string game_str)
 				continue;
 			}
 
-			// TODO: this is not necessarily safe :DD
 			curr_num_val = stoi(curr_num, nullptr, 10);
 
 			// Store the new var IF it is greater than the last
-			if (rgb[color_idx] < curr_num_val) {
-				rgb[color_idx] = curr_num_val;
+			if (rgb->at(color_idx) < curr_num_val) {
+				rgb->at(color_idx) = curr_num_val;
 			}
 
 			curr_num.clear();
@@ -68,9 +66,6 @@ array<int, 3> parseGame(string game_str)
 			break;
 		}
 	}
-
-
-	return rgb;
 }
 
 // https://adventofcode.com/2023/day/2
@@ -97,7 +92,7 @@ int main(int argc, char* argv[])
 	while (getline(file_handle, curr_line)) {
 		game_num++;
 
-		rgb = parseGame(curr_line);
+		parseGame(curr_line, &rgb);
 		printf("Line %d: found r %d, g %d, b %d\n", game_num, rgb[0], rgb[1], rgb[2]);
 
 		// Part 1 things
