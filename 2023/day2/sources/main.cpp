@@ -93,7 +93,7 @@ int main(int argc, char* argv[])
 		game_num++;
 
 		parseGame(curr_line, &rgb);
-		printf("Line %d: found r %d, g %d, b %d\n", game_num, rgb[0], rgb[1], rgb[2]);
+		printf("Line %d: found r%d, g%d, b%d\n", game_num, rgb[0], rgb[1], rgb[2]);
 
 		// Part 1 things
 		// if (rgb[0] > red_cube_max || rgb[1] > green_cube_max || rgb[2] > blue_cube_max) {
