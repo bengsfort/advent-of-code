@@ -5,9 +5,12 @@
 using namespace std;
 
 const char * colors[] = { "red", "green", "blue" };
-const int red_cube_max = 12;
-const int green_cube_max = 13;
-const int blue_cube_max = 14;
+
+// Just part 1 things
+// const int red_cube_max = 12;
+// const int green_cube_max = 13;
+// const int blue_cube_max = 14;
+
 
 // ex:
 // Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
@@ -96,15 +99,16 @@ int main(int argc, char* argv[])
 		game_num++;
 
 		rgb = parseGame(curr_line);
-		printf("Line %d: found r %d, g %d, b %d", game_num, rgb[0], rgb[1], rgb[2]);
+		printf("Line %d: found r %d, g %d, b %d\n", game_num, rgb[0], rgb[1], rgb[2]);
 
-		if (rgb[0] > red_cube_max || rgb[1] > green_cube_max || rgb[2] > blue_cube_max) {
-			printf(" !! INVALID\n");
-			continue;
-		}
+		// Part 1 things
+		// if (rgb[0] > red_cube_max || rgb[1] > green_cube_max || rgb[2] > blue_cube_max) {
+		// 	printf(" !! INVALID\n");
+		// 	continue;
+		// }
+		// result += game_num;
 
-		printf("\n");
-		result += game_num;
+		result += rgb[0] * rgb[1] * rgb[2];
 	}
 
 	printf("Result: %d", result);
