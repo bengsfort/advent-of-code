@@ -1,3 +1,9 @@
 # Build artefacts
 
 *.a
+
+# VisualStudio
+
+*.sln
+*.vcxproj
+*.vcxproj.filters
