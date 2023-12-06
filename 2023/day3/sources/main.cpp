@@ -113,6 +113,9 @@ bool is_adjacent(SchematicEntry* sym, SchematicNumber* number)
 
 // https://adventofcode.com/2023/day/3
 // ./build/Debug/day3.exe --file=./inputs/test.txt
+// TODO: this is a horribly inefficient solution as we generate a million
+// damn strings all over the place. it would be much better to store ptr's
+// to the numbers in the file buffer, along with length, and then use those
 int main(int argc, char* argv[])
 {
 	char* file_name = utilities::getStringArg(argc, argv, "--file");
