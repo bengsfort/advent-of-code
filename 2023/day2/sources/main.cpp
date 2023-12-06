@@ -1,5 +1,7 @@
 #include <iostream>
 #include <fstream>
+#include <string>
+#include <array>
 #include <args.h>
 
 using namespace std;
