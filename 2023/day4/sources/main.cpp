@@ -36,14 +36,17 @@ int main(int argc, char* argv[])
 	string curr_line;
 	int result = 0;
 
-	map<string, int> copy_map;
+	map<int, int> copy_map;
+	map<int, int>::iterator copy_map_iter;
 	vector<string> winning_numbers;
 	string entry;
-	int cursor, seperator_index, card_total;
+
+	int card_num = 0, cursor, seperator_index, card_total, card_instances;
 	int num_start;
 
 	while (getline(file_handle, curr_line)) {
 		// Reset
+		card_num++;
 		cursor = 0;
 		seperator_index = 0;
 		card_total = 0;
@@ -102,15 +105,41 @@ int main(int argc, char* argv[])
 					continue;
 				}
 
-				card_total = card_total == 0 ? 1 : card_total * 2;
-				printf("%s matches %s! Adding to card total %d\n", entry.c_str(), winning.c_str(), card_total);
+				// Pt 1 stuff
+				// card_total = card_total == 0 ? 1 : card_total * 2;
+				card_total += 1;
+				// printf("%s matches %s! Adding to card total %d\n", entry.c_str(), winning.c_str(), card_total);
 				break;
 			}
 			num_start = -1;
 		}
+		printf("card %d had %d winning numbers\n", card_num, card_total);
 
-		result += card_total;
-		printf("Points: %d\n", card_total);
+		// pt 2 stuff
+
+		// Check for card instances (copies)
+		copy_map_iter = copy_map.find(card_num);
+		if (copy_map_iter != copy_map.end()) {
+			card_instances = 1 + copy_map_iter->second;
+			printf("card %d had %d copies stored!\n", card_num, card_instances);
+		}
+		else {
+			card_instances = 1;
+			printf("card %d did not have copies stored\n", card_num);
+		}
+
+		// loop through following cards and store copies
+		for (int i = 1; i <= card_total; i++) {
+			if (auto existing_copy_search = copy_map.find(card_num + i); existing_copy_search != copy_map.end()) {
+				copy_map[existing_copy_search->first] = existing_copy_search->second + card_instances;
+			}
+			else {
+				copy_map.insert({ card_num + i, card_instances });
+			}
+		}
+
+		result += card_instances;
+		printf("Points: %d, copies: %d\n==========\n", card_total, card_instances);
 	}
 
 
