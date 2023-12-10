@@ -31,6 +31,15 @@ void parse_seed_ids(string* curr_line, vector<int>* results)
 	}
 }
 
+string parse_map_title(string* curr_line)
+{
+	int cursor = curr_line->length();
+	int name_start = 0;
+	int name_length = 0;
+
+	for (cursor = curr_line->length(); curr)
+}
+
 // Returns the parsed map line.
 // [dst_range_start, src_range_start, length]
 array<int, 3> parse_map_line(string* curr_line)
