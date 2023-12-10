@@ -1,12 +1,82 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <array>
 #include <vector>
-#include <map>
 #include <args.h>
 #include <math.h>
 
 using namespace std;
+
+void parse_seed_ids(string* curr_line, vector<int>* results)
+{
+	int cursor = 0;
+	string num_substr;
+	int num_start = -1;
+	int num_length = 0;
+
+	int start = curr_line->find(':') + 1;
+
+	for (int cursor = start; cursor <= curr_line->length(); cursor++) {
+		if (cursor == curr_line->length() || (curr_line->at(cursor) == ' ' || curr_line->at(cursor) == '\0') && num_length > 0) {
+			num_substr = curr_line->substr((size_t)num_start, (size_t)num_length);
+			results->push_back(stoi(num_substr, nullptr, 10));
+			num_start = -1;
+			num_length = 0;
+			continue;
+		}
+
+		if (num_start == -1) num_start = cursor;
+		num_length += 1;
+	}
+}
+
+string parse_map_title(string* curr_line)
+{
+	int cursor = curr_line->length();
+	int name_start = 0;
+	int name_length = 0;
+
+	for (cursor = curr_line->length(); curr)
+}
+
+// Returns the parsed map line.
+// [dst_range_start, src_range_start, length]
+array<int, 3> parse_map_line(string* curr_line)
+{
+	array<int, 3> result{};
+
+	int cursor = 0;
+	int column = 0;
+	string num_substr;
+	int num_start = 0;
+	int num_length = 0;
+
+	for (auto character : *curr_line) {
+		if (character == ' ' || character == '\0') {
+			num_substr = curr_line->substr((size_t)num_start, (size_t)num_length);
+			result[column] = stoi(num_substr, nullptr, 10);
+			column++;
+			num_start = ++cursor;
+			num_length = 0;
+			continue;
+		}
+
+		num_length++;
+		cursor++;
+	}
+
+	return result;
+}
+
+bool translate_to_range(int id, array<int, 3>* map)
+{
+	auto& [ dst_start, src_start, len ] = *map;
+	if (id >= src_start && id <= (src_start + len)) {
+		return dst_start + (id - src_start);
+	}
+	return id;
+}
 
 // https://adventofcode.com/2023/day/5
 // ./build/Debug/day4.exe --file=./inputs/test.txt
@@ -35,15 +105,48 @@ int main(int argc, char* argv[])
 
 	// Iterate through each line and store what we find
 	string curr_line;
+	int line_number = -1;
 	int result = 0;
 
+	vector<int> seed_ids{};
+	vector<int[3]> curr_maps;
+	string curr_map_name;
+
 	while (getline(file_handle, curr_line)) {
-		// Reset
-		// TODO: Parse & solve.
+		line_number++;
+
+		// parse seeds into vector
+		if (line_number == 0) {
+			parse_seed_ids(&curr_line, &seed_ids);
+			cout << "line " << line_number << " parsed seeds" << endl;
+			continue;
+		}
+
+		// Skip empty lines
+		if (curr_line.empty()) {
+			cout << "line " << line_number << " empty - skipping" << endl;
+			continue;
+		}
+
+		// if is a map title -> parse, init, and continue
+		if (curr_line.rfind(':') != string::npos) {
+			cout << "line " << line_number << " map title" << endl;
+			cout << curr_line << endl;
+			// TODO: parse
+			continue;
+		}
+
+		// else parse current line -> translate -> test against seeds -> continue
+
+		// cache locations of all map starts so we can jump around
+		// for each seed, iterate through maps
+		// parse_map_line -> translate_to_range -> if no change, check other maps
+
+
 		cout << curr_line << endl;
 	}
 
-	cout << "Result: %d" << result << endl;
+	cout << "Result: " << result << endl;
 
 	// Cleanup
 	file_handle.close();

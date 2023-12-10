@@ -21,7 +21,7 @@ set_target_properties(day5 PROPERTIES
 )
 
 if(WIN32)
-	target_compile_options(day5 PRIVATE -W)
+	target_compile_options(day5 PRIVATE -W4)
 else()
 	target_compile_options(day5 PRIVATE -Wall -Wextra -Wpedantic)
 endif()
