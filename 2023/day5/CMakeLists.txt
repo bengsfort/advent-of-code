@@ -11,6 +11,11 @@ set(SOURCES
 	sources/debug.h
 	sources/parsing.h
 	sources/parsing.cpp
+	sources/solver.h
+	sources/part1solver.h
+	sources/part1solver.cpp
+	sources/part2solver.h
+	sources/part2solver.cpp
 )
 
 add_subdirectory(../utils ${CMAKE_CURRENT_BINARY_DIR}/build/utils)

@@ -13,4 +13,5 @@ namespace day5
     // [dst_range_start, src_range_start, length]
     std::array<long long, 3> parse_map_line(std::string* curr_line);
 
+	long long translate_to_range(long long id, std::array<long long, 3>* map);
 }

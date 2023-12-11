@@ -91,3 +91,12 @@ std::array<long long, 3> day5::parse_map_line(std::string* curr_line)
 
 	return result;
 }
+
+long long day5::translate_to_range(long long id, std::array<long long, 3> *map)
+{
+	auto& [ dst_start, src_start, len ] = *map;
+	if (id >= src_start && id <= (src_start + len)) {
+		return dst_start + (id - src_start);
+	}
+    return id;
+}

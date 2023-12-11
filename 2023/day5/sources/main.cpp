@@ -4,10 +4,12 @@
 #include <array>
 #include <vector>
 #include <utilities.h>
-#include <math.h>
 
 #include "debug.h"
 #include "parsing.h"
+#include "solver.h"
+#include "part1solver.h"
+#include "part2solver.h"
 
 using namespace std;
 
@@ -46,70 +48,22 @@ int main(int argc, char* argv[])
 	fstream file_handle = utilities::get_input_file(argc, argv, "--file");
 	bool solve_pt1 = utilities::has_arg(argc, argv, "--pt1");
 
+	day5::solver<long long>* active_solver = nullptr;
+	if (solve_pt1) {
+		active_solver = new day5::part_1_solver();
+	} else {
+		active_solver = new day5::part_2_solver();
+	}
+
 	// Iterate through each line and store what we find
 	string curr_line;
-	int line_number = -1;
-	long long result = 0;
-
-	vector<long long> seed_ids{};
-	vector<bool> seed_range_found{};
-	int curr_seed = 0;
-	array<long long, 3> active_map;
-	string curr_map_name;
+	int line_number = 0;
 
 	while (getline(file_handle, curr_line)) {
-		line_number++;
-
-		// parse seeds into vector
-		if (line_number == 0) {
-			day5::parse_seed_ids(&curr_line, &seed_ids);
-			seed_range_found.assign(seed_ids.size(), false);
-			cout << "line " << line_number << " parsed seeds" << endl;
-			day5::print_ids(&seed_ids);
-			continue;
-		}
-
-		// Skip empty lines
-		if (curr_line.empty()) {
-			continue;
-		}
-
-		// if is a map title -> parse, init, and continue
-		if (curr_line.rfind(':') != string::npos) {
-			day5::print_ids(&seed_ids);
-			curr_map_name = day5::parse_map_title(&curr_line);
-			seed_range_found.assign(seed_ids.size(), false);
-			cout << "                         " << curr_map_name << endl;
-			continue;
-		}
-
-		long long new_id;
-		curr_seed = 0;
-		active_map = day5::parse_map_line(&curr_line);
-
-		for (long long id : seed_ids) {
-			if (seed_range_found.at(curr_seed) == true) {
-				curr_seed++;
-				continue;
-			}
-
-			new_id = translate_to_range(id, &active_map);
-			if (new_id != id) {
-				seed_range_found[curr_seed] = true;
-				seed_ids[curr_seed] = new_id;
-			}
-
-			curr_seed++;
-		}
+		active_solver->parse_line(++line_number, &curr_line);
 	}
 
-	result = INT_MAX;
-	for (long long id : seed_ids) {
-		if (id < result)
-			result = id;
-	}
-
-	day5::print_ids(&seed_ids);
+	long long result = active_solver->get_result();
 	cout << "Result: " << result << endl;
 
 	// Cleanup
