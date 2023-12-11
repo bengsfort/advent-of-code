@@ -3,12 +3,11 @@
 #include <string>
 #include <vector>
 #include <map>
-#include <args.h>
-#include <math.h>
+#include <utilities.h>
 
 using namespace std;
 
-// https://adventofcode.com/2023/day/4 
+// https://adventofcode.com/2023/day/4
 // ./build/Debug/day4.exe --file=./inputs/test.txt
 // ./build/Debug/day4.exe --file=./inputs/codes.txt
 //
@@ -19,18 +18,7 @@ using namespace std;
 // - Card 4: 1pt
 int main(int argc, char* argv[])
 {
-	char* file_name = utilities::getStringArg(argc, argv, "--file");
-	if (file_name == NULL) {
-		cout << "Must include an input file with --file" << endl;
-		return 1;
-	}
-
-	fstream file_handle (file_name);
-
-	if (!file_handle.is_open()) {
-		cout << "Could not open input" << endl;
-		return errno;
-	}
+	fstream file_handle = utilities::get_input_file(argc, argv, "--file");
 
 	// Iterate through each line and store what we find
 	string curr_line;
@@ -96,8 +84,8 @@ int main(int argc, char* argv[])
 			}
 
 			// We are at a boundary; check for the number
-			// 
-			// NOTE: we could maybe use .find() to "simplify" this, 
+			//
+			// NOTE: we could maybe use .find() to "simplify" this,
 			// but I don't think it actually would simplify it much.
 			entry = curr_line.substr(num_start, (size_t)(cursor - num_start));
 			for (string winning : winning_numbers) {

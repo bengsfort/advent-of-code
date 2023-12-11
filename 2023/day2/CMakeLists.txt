@@ -10,6 +10,7 @@ set(SOURCES
 	sources/main.cpp
 )
 
+add_subdirectory(../utils ${CMAKE_CURRENT_BINARY_DIR}/build/utils)
 add_executable(day2 ${SOURCES})
 
 # Links

@@ -2,7 +2,7 @@
 #include <fstream>
 #include <string>
 #include <array>
-#include <args.h>
+#include <utilities.h>
 
 using namespace std;
 
@@ -73,19 +73,8 @@ void parseGame(string game_str, array<int, 3>* rgb)
 // https://adventofcode.com/2023/day/2
 int main(int argc, char* argv[])
 {
-	char* file_name = utilities::getStringArg(argc, argv, "--file");
-	if (file_name == NULL) {
-		cout << "Must include an input file with --file" << endl;
-		return 1;
-	}
-
+	fstream file_handle = utilities::get_input_file(argc, argv, "--file");
     string curr_line;
-	fstream file_handle (file_name);
-
-	if (!file_handle.is_open()) {
-		cout << "Could not open input" << endl;
-		return errno;
-	}
 
 	array<int, 3> rgb;
 	int game_num = 0;

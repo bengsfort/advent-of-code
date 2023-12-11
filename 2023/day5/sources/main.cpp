@@ -3,7 +3,7 @@
 #include <string>
 #include <array>
 #include <vector>
-#include <args.h>
+#include <utilities.h>
 #include <math.h>
 
 #include "debug.h"
@@ -17,13 +17,13 @@ using namespace std;
 //   - Parse maps first, create range map for lowest-possible result
 //   - Create block-list of values that cannot convert into the lowest-possible range
 //   - Iterate through provided ranges, discarding any ID's that are in the block list
-// - Idea 2 
+// - Idea 2
 //   - ???????????
 
 // Solving ------------------------------------
 
 long long translate_to_range(long long id, array<long long, 3>* map)
-{ 
+{
 	auto& [ dst_start, src_start, len ] = *map;
 	if (id >= src_start && id <= (src_start + len)) {
 		return dst_start + (id - src_start);
@@ -43,18 +43,8 @@ long long translate_to_range(long long id, array<long long, 3>* map)
 // - Result: 35 (lowest)
 int main(int argc, char* argv[])
 {
-	char* file_name = utilities::getStringArg(argc, argv, "--file");
-	if (file_name == NULL) {
-		cout << "Must include an input file with --file" << endl;
-		return 1;
-	}
-
-	fstream file_handle (file_name);
-
-	if (!file_handle.is_open()) {
-		cout << "Could not open input" << endl;
-		return errno;
-	}
+	fstream file_handle = utilities::get_input_file(argc, argv, "--file");
+	bool solve_pt1 = utilities::has_arg(argc, argv, "--pt1");
 
 	// Iterate through each line and store what we find
 	string curr_line;

@@ -2,8 +2,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
-#include <args.h>
-#include <math.h>
+#include <utilities.h>
 
 
 using namespace std;
@@ -147,20 +146,8 @@ int solve_gears(vector<SchematicEntry>* entries, vector<vector<SchematicNumber>>
 // along with length, and then use those instead.
 int main(int argc, char* argv[])
 {
-	char* file_name = utilities::getStringArg(argc, argv, "--file");
-	if (file_name == NULL) {
-		cout << "Must include an input file with --file" << endl;
-		return 1;
-	}
-
-	fstream file_handle (file_name);
-
-	if (!file_handle.is_open()) {
-		cout << "Could not open input" << endl;
-		return errno;
-	}
-
-	bool gears_only = utilities::hasArg(argc, argv, "--gears");
+	fstream file_handle = utilities::get_input_file(argc, argv, "--file");
+	bool gears_only = utilities::has_arg(argc, argv, "--gears");
 
 	int col_count, row_count = 0;
 	string number_group;

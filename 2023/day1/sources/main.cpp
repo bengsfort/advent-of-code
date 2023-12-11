@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include <args.h>
+#include <utilities.h>
 #include <string>
 
 using namespace std;
@@ -50,19 +50,8 @@ char parseWrittenNumber(string str, int start)
 // https://adventofcode.com/2023/day/1
 int main(int argc, char* argv[])
 {
-	char* file_name = utilities::getStringArg(argc, argv, "--file");
-	if (file_name == NULL) {
-		cout << "Must include an input file with --file" << endl;
-		return 1;
-	}
-
+	fstream file_handle = utilities::get_input_file(argc, argv, "--file");
     string curr_line;
-	fstream file_handle (file_name);
-
-	if (!file_handle.is_open()) {
-		cout << "Could not open input" << endl;
-		return errno;
-	}
 
 	int result = 0;
 	char line_code[3] = {0, 0, 0};
