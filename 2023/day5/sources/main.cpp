@@ -8,6 +8,8 @@
 
 using namespace std;
 
+// TODO: Part 2 D:
+
 // Debug ----------------------------
 
 void print_map(array<long long, 3>* curr_map)
