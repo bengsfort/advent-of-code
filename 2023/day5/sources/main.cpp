@@ -9,6 +9,13 @@
 using namespace std;
 
 // TODO: Part 2 D:
+// Possible solutions:
+// - Idea 1
+//   - Parse maps first, create range map for lowest-possible result
+//   - Create block-list of values that cannot convert into the lowest-possible range
+//   - Iterate through provided ranges, discarding any ID's that are in the block list
+// - Idea 2 
+//   - ???????????
 
 // Debug ----------------------------
 
