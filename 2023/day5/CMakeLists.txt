@@ -8,8 +8,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Source files + executable setup
 set(SOURCES
 	sources/main.cpp
+	sources/debug.h
+	sources/parsing.h
+	sources/parsing.cpp
 )
 
+add_subdirectory(../utils ${CMAKE_CURRENT_BINARY_DIR}/build/utils)
 add_executable(day5 ${SOURCES})
 
 # Links
