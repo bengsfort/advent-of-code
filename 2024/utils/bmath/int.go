@@ -8,3 +8,17 @@ func IntSign(a int) int {
 	}
 	return 0
 }
+
+func MaxInt(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
+}
+
+func MinInt(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
+}
